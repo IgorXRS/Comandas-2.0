@@ -1,0 +1,377 @@
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drogaria Popular Br</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/Ponto_Eletronico.css">
+    <link rel="stylesheet" href="./styles/comanda.css">
+    <link rel="stylesheet" href="./styles/menu-lateral.css">
+    <link rel="stylesheet" href="./styles/home.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.min.js"></script>
+
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="menu-lateral">
+        <div class="btn-expandir">
+          <i class="bi bi-list" id="btn-exp"></i>
+    
+        </div><!--btn-expandir-->
+    
+        <ul>
+          <li class="item-menu ativo">
+            <a href="#backHome">
+              <span class="icon"><i class="bi bi-house"></i></span>
+              <span class="txt-link">Home</span>
+            </a>
+          </li>
+          <li class="item-menu">
+            <a href="#backLogado">
+              <span class="icon"><i class="bi bi-columns-gap"></i></span>
+              <span class="txt-link">Entregas</span>
+            </a>
+          </li>
+          <li class="item-menu">
+            <a href="#backPonto">
+              <span class="icon"><i class="bi bi-clock"></i></span>
+              <span class="txt-link">Ponto</span>
+            </a>
+          </li>
+          <li class="item-menu">
+            <a href="#backComanda">
+              <span class="icon"><i class="bi bi-printer"></i></span>
+              <span class="txt-link">Comanda</span>
+            </a>
+          </li>
+          <li class="item-menu logout">
+            <a href="#">
+              <span class="icon logout"><i class="bi bi-box-arrow-right"></i></span>
+              <span class="txt-link">Sair</span>
+            </a>
+          </li>
+        </ul>
+    
+      </nav><!--menu-lateral-->
+</header><!--Header-->
+
+<section class="background-login corpo" id="backLogin">
+    <div class="login">
+        <h2>DROGARIA POPULAR BR</h2>
+        <h5 style="color: rgba(194, 189, 189, 0.603); padding-bottom: 30px;">Faça login para acessar </br> o sistema</h5>
+        <form class="login-form">
+            <input class="text-input" type="email" name="email" placeholder="E-mail"/>
+            <input class="text-input" type="password" name="password" placeholder="Senha"/>
+        </br>
+            <input class="submit-input" type="submit" name="acao" value="Logar!" />
+        </form><!--login-form-->
+    </div><!--login-->
+</section><!--background-login-->
+
+<section class="background-home corpo" id="backHome">
+    <div class="container-home">
+        <div class="container-home-01">
+            <img src="./img/Drog-Recuperado.png" />
+            <p>Na equipe Drogaria Popular Br, cada esforço é uma peça 
+                fundamental para o nosso sucesso. Juntos, 
+                somos a força que impulsiona o progresso. 
+                Obrigado por sua dedicação e contribuição 
+                diária. Vamos continuar alcançando grandes 
+                conquistas!</p>
+                <button type="button" id="abrirRelatorioBtn">
+                    Gerar Relatório
+                </button>
+        </div>
+        <div class="container-home-02">
+            <div class="resumoTitulo">
+                <i onclick="telaCheia();" class="bi bi-arrows-angle-expand "></i>
+                <h2>CONTÁGEM DO DIA</h2>
+            </div>
+            <div class="resumo">
+                <div class="cartao">
+                    <h2 id="contagemCartao">0</h2>
+                    <p>Cartão</p>
+                    <p class="contagemValor" id="valorCartao">R$ <strong>0,00</strong></p>
+                </div>
+                <div class="pix">
+                    <h2 id="contagemPix">0</h2>
+                    <p>Pix</p>
+                    <p class="contagemValor" id="valorPix">R$ <strong>0,00</strong></p>
+                </div>
+                <div class="dinheiro">
+                    <h2 id="contagemDinheiro">0</h2>
+                    <p>Dinheiro</p>
+                    <p class="contagemValor" id="valorDinheiro">R$ <strong>0,00</strong></p>
+                </div>
+                <div class="total">
+                    <h2 id="contagemTotal">0</h2>
+                    <p>Total</p>
+                    <p class="contagemValor" id="valorTotal">R$ <strong>0,00</strong></p>
+                </div>
+            </div>
+            <div class="home-infor">
+                <h2 id="data-atual">Entregas do dia:</h2>
+                <input type="text" id="filtroData" placeholder="Pesquisar...">
+            </div>
+            <div class="tabela">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Pagamento</th>
+                            <th>Quantidade</th>
+                            <th>Valor</th>
+                            <th>Data</th>
+                            <th>Entregador</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tableRegist" id="tabelaRegistros">
+                        <!-- Linhas da tabela serão adicionadas dinamicamente aqui -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="background-logado corpo" id="backLogado">
+    <div class="container-login">
+        <div class="pesquisar2">
+            <input type="text" id="filtroProduto2" placeholder="Pesquisar...">
+        </div>
+        <div class="registros-entregas">
+            <ul id="registrosEntregas">
+            </ul>
+        </div>
+    </div><!--container-login-->
+</section><!--background-logado-->
+
+<section class="background-ponto corpo" id="backPonto">
+        <div class="container-ponto">
+            <div class="tela_ponto">
+            <form class="form-cadastro-registro">
+                <textarea style="display: block;" placeholder="Passe seu Cartão..." name="codigoNome"></textarea>
+                <input style="display: none;" class="text-input" type="text" name="atualizar" placeholder="Atualização"/>
+            </form>
+            <div class="pesquisar">
+                <input type="text" id="filtroProduto" placeholder="Pesquisar...">
+            </div>
+            <div class="registros-usuario">
+                <ul id="registros"></ul>
+            </div>
+            </div>
+        </div><!--container-login-->
+</section><!--background-ponto-->
+
+<section class="background-comanda corpo" id="backComanda">
+<!-- Seção de entrada de dados -->
+<div class="container-comanda">
+    <div class="dados">
+    <div class="conteiner">
+        <div class="titulo">
+            <h1>Comando de Entrega</h1>
+        </div>
+        <div class="informacoes">
+                <div class="container01">
+                    <!-- Input para o nome do cliente -->
+                    <div class="caixa_text">
+                        <input type="text" placeholder="Cliente" id="cliente" name="cliente" />
+                    </div>
+                    <!-- Formulário para seleção do método de pagamento -->
+                    <form>
+                        <label style="color: white;" for="opcoes-pagamento">Pagamento:</label>
+                        <select id="pagamento" name="pagamento">
+                        <option value="Dinheiro">Dinheiro</option>
+                        <option value="Dinheiro Trocado">Dinheiro Trocado</option>
+                        <option value="Pix">PIX</option>
+                        <option value="Cartão">Cartão</option>
+                        </select>
+                    </form>
+                    <div style="display: none;" class="caixa_text" id="caixaQtd">
+                        <input type="number" placeholder="Quantidade?" id="qtd" value="1"/>
+                    </div>
+                    <!-- Caixa de texto para troco -->
+                    <div class="caixa_text" id="caixaTroco">
+                        <input type="number" placeholder="Troco para?" id="troco" />
+                    </div>
+                    <!-- Caixa de texto para valor -->
+                    <div class="caixa_text">
+                        <input type="number" placeholder="Valor" step="0.01" id="valor" name="valor"/>
+                    </div>
+                </div>
+                <div class="container02">
+                    <!-- Caixa de texto para endereço -->
+                    <div class="caixa_text">
+                        <textarea type="text" id="endereco" placeholder="Endereço"></textarea>
+                    </div>
+                    <!-- Formulário para geração de QR Code -->
+                    <div class="form">
+                        <div class="caixa_text">
+                            <input type="text" placeholder="Link" id="link" />
+                        </div>
+                        <!-- Checkbox para indicar se é WhatsApp -->
+                        <label id="checkboxX">
+                            <input type="checkbox" id="checkboxRecibo" name="checkboxCode" value="x"> É WhatsApp? 
+                        </label>
+                        <select id="entregador" name="entregador">
+                            <option value="Entregador 01">Entregador 01</option>
+                            <option value="Entregador 02">Entregador 03</option>
+                        </select>
+                    </div>
+                </div>
+        </div>
+         <!-- Botão para gerar o comando -->
+        <button id="botao-gerar-recibo">Gera Comando</button>
+    </div>
+    <!--API Frases-->
+    <div id="frases">
+        <h3>Buscar frase:</h3>
+        <input type="text" id="termoPesquisa" placeholder="Digite o tema">
+        <button onclick="buscarNovaFrase()">Nova Frase</button>
+        <button onclick="previews()" id="previews">Previews</button>
+        <!--<p id="frase"></p>-->
+    </div>
+    </div>
+    <div  style=" display: none;" id="imprecao">
+        <!-- Seção de impressão -->
+    <div class="Print" id="print">
+        <div class="recibo">
+                <!-- Exibição dos detalhes do recibo -->
+                <img id="logo2" src="./img/Drog-Recuperado-black.png" alt="code2">
+                <p id="WhatsApp">
+                    <img style="width: 13px; transform: translateY(3px);" src="./img/Whats.png"> (61) 3715 - 0201
+                    ------- <Strong>Cabeceiras - GO</Strong><br />
+                    <img style="width: 13px; transform: translateY(3px);" src="./img/Whats.png"> (61) 9 9982 - 2807
+                    ---- <Strong>Planaltina - GO</Strong>
+                </p>
+                <h1>Cliente - <span id="recibo_cliente"></span><p id="frase"></p></h1>
+                <p><strong>Forma de Pagamento: </strong><span id="recibo_pagamento"></span></p>
+                <p id="troco_result"><strong>Troco para: </strong><span id="recibo_troco"></span></p>
+                <p><strong>Qtd: </strong><span id="recibo_qtd">1</span></p>
+                <p><strong>Valor R$: </strong>
+                <br/><h2 id="recibo_valor">0,00</h2></p>
+                <p><strong>Endereço: </strong><span id="recibo_endereco"></span></p>
+                <br />
+                <div id="resultadoTroco"></div>
+                <!-- Exibição da hora atual -->
+                <p id="horaAtual"></p>
+                <p><strong>Entregador: </strong><span id="recibo_entregador"></span></p>
+                <div class="assinatura">Ainda bem que na <strong>Drogaria Popular Br</strong> tem!</div>
+                
+        </div>
+        <!-- Seção para gerar QR Code -->
+        <div class="wrapper">
+            <div class="form">
+                <!-- Botão para gerar QR Code -->
+                <button onclick="gerarQrCode()">Gerar Qr Code</button>
+            </div>
+            <!-- Exibição do QR Code -->
+            <div class="qr-code" id="qr-code">
+                <img src="" alt="qrcode" class="img">
+            </div>
+        </div>
+        <div id="barcode"></div>
+        <div class="numberBar" ><p id="numberBarCode"></p></div>
+        </div>
+    </div>
+</div>
+</section><!--background-comanda-->
+    
+<div class="modal" id="alertModal">
+    <p>Lembrete: HOJE É DIA DE FAZER PEDIDO DE GÁS!</p>
+    <div class="modal-content">
+        <button onclick="disableAlert()">Já pedi</button>
+        <button onclick="closeAlert()">OK</button>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modalRelatorio fade" id="relatorioModal" tabindex="-1" aria-labelledby="relatorioModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="dataRelatorio">
+                <input type="date" id="dataInicio">
+                <input type="date" id="dataFim">
+                <button id="imprimirRelatorio"><i class="bi bi-search"></i></button>
+            </div>
+            <div class="modal-body">
+                <!-- Conteúdo do relatório aqui -->
+                <div id="relatorioConteudo"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="FecharRelatorioBtn">Fechar</button>
+                <button type="button" id="PrintRelatorio">Imprimir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    async function buscarNovaFrase() {
+const termoPesquisa = document.getElementById('termoPesquisa').value;
+
+try {
+    const response = await fetch(`https://back-end-api-frases.vercel.app/buscar-frases?termo=${encodeURIComponent(termoPesquisa)}`, { mode: 'cors' });
+    const data = await response.json();
+    //console.log(response);
+
+    if (data.frases && data.frases.length > 0) {
+        const novaFrase = data.frases[Math.floor(Math.random() * data.frases.length)];
+        document.getElementById('frase').innerText = novaFrase;
+    } else {
+        document.getElementById('frase').innerText = 'Nenhuma frase encontrada.';
+    }
+} catch (error) {
+    console.error('Erro ao buscar nova frase:', error);
+    document.getElementById('frase').innerText = 'Erro ao buscar nova frase.';
+}
+}
+
+// Adicione esta função ao seu script.js
+function previews() {
+    var dadosDiv = document.querySelector('.dados');
+    var imprecaoDiv = document.querySelector('#imprecao');
+    var printDiv = document.querySelector('.Print')
+
+    if (dadosDiv.style.width === '70%') {
+        // Se a largura for 70%, altera para 100% e esconde a div de impressão
+        dadosDiv.style.width = '100%';
+        imprecaoDiv.style.display = 'none';
+        printDiv.style.display = 'none';
+    } else {
+        // Se a largura for 100%, altera para 70% e mostra a div de impressão
+        dadosDiv.style.width = '70%';
+        imprecaoDiv.style.display = 'flex';
+        printDiv.style.display = 'flex';
+    }
+}
+
+</script>
+
+<!-- Importa os módulos JavaScript -->
+
+<script type="module" src="./js/comanda.js"></script>
+<script type="module" src="./Modulos/ReciboSimples.js"></script>
+<script type="module" src="./Modulos/ReciboLocaliz.js"></script>
+<script type="module" src="./Modulos/ReciboContato.js"></script>
+<script type="module" src="./Modulos/controle.js"></script>
+<script type="module" src="./Modulos/Relatorio.js"></script>
+<script src="./js/menuLateral.js"></script>
+<script src="./Modulos/home.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore-compat.js"></script>
+<script type="module" src="./js/script.js"></script>
+
+
+</body>
+</html>

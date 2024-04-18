@@ -1,0 +1,382 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300;500;600;700&display=swap');
+
+
+:root {
+    --corDark: #360101;
+    --corMedia: #690101; 
+    --corClean: #fff;
+    --corCleanFosc: #e1c7fc;
+}
+
+.background-comanda{
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: var(--corDark);
+}
+
+
+.container-comanda{
+    display: flex;
+    background: var(--corMedia);
+    width: 80%;
+    height: 90%;
+    border-radius: 20px;
+    box-shadow: 10px 5px 70px rgba(0, 0, 0, 0.644);
+}
+
+.conteiner > .titulo {
+    padding-top: 10%;
+}
+
+
+.dados {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    width: 80%;
+    height: 90%;
+}
+
+#imprecao{
+    display: flex;
+    top: 0;
+    justify-content: center;
+    height: 100%;
+    width: 30%;
+    overflow: auto;
+}
+
+.Print {
+    display: none;
+    flex-direction: column;
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 30px;
+    width: 280px;
+    height: auto;
+    background: white;
+    overflow: auto;
+}
+
+.recibo > h1 {
+    border-bottom: 1px solid black;
+    margin-bottom: 20px;
+}
+
+.recibo > h2 {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 20px;
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 10px;
+    color: black;
+}
+
+.recibo > p {
+    padding: 5px;
+    font-size: 18px;
+    color: black;
+}
+
+
+.assinatura {
+    border-top: 1px solid black;
+    text-align: center;
+}
+
+.conteiner {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: rgb(150, 0, 0);
+    border-radius: 30px;
+    width: 600px;
+    height: 450px;
+    -webkit-box-shadow: 5px 4px 25px 7px rgba(0,0,0,0.66); 
+    box-shadow: 5px 4px 25px 7px rgba(0, 0, 0, 0.308);
+}
+
+.informacoes {
+    display: flex;
+    justify-content: center;
+}
+
+.conteiner h1 {
+    padding-bottom: 10px;
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+}
+
+.caixa_text {
+    padding: 10px;
+}
+
+.caixa_text input {
+    width: 250px;
+    height: 30px;
+    border-radius: 8px;
+    border: none;
+    text-align: center;
+}
+.caixa_text textarea {
+    width: 250px;
+    height: 80px;
+    border-radius: 8px;
+    border: none;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+::placeholder{
+    padding-left: 10px;
+    text-align: left;
+}
+
+#logo {
+    width: 200px;
+    
+}
+
+#logo2 {
+    width: 200px;
+    position: relative;
+    left: 30px;
+}
+
+
+#WhatsApp{
+    font-size: 12px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.conteiner02{
+    display: flex;
+}
+
+#checkboxX {
+    color: white;
+    font-size: 13px;
+}
+
+#resultadoTroco {
+    display: none;
+}
+
+#link {
+    font-size: 14px;
+}
+
+#caixaTroco{
+    display: none;
+}
+
+button {
+    margin-top: 20px;
+    background-color: rgb(20, 20, 20);
+    color: rgb(110, 110, 110);
+    font-weight: 500;
+    border: none;
+    width: 160px;
+    height: 30px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+button:hover {
+    width: 140px;
+    transition: 0.4s;
+    color: rgb(255, 255, 255);
+}
+
+
+.container01 > form > select {
+padding: 8px;
+width: 170px;
+font-size: 13px;
+border: none;
+border-radius: 10px;
+background-color: #fff;
+outline: none;
+}
+
+option {
+padding: 5px;
+}
+
+label {
+    font-size: 15px;
+    padding-left: 10px;
+}
+
+
+.wrapper{
+    max-width: 410px;
+    border-radius: 7px;
+    padding: 16px 25px;
+    transition: height 0.5s ease;
+}
+
+header h1{
+    text-align: center;
+    font-weight: 500;
+    font-size: 21px;
+}
+header p{
+    text-align: center;
+    margin-top: 5px;
+    color: #474747;
+    font-size: 16px;
+}
+.wrapper .form{
+    margin: 20px 0 25px;
+}
+.wrapper :where(input, button){
+    width: 100%;
+    height: 55px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+.form input{
+    font-size: 18px;
+    padding: 0 17px;
+    border: 1px solid #999;
+}
+.form button{
+    display: none;
+}
+.wrapper .qr-code{
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+    padding: 15px 0;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #987a71;
+}
+.wrapper .img{
+    width: 150px;
+    height: auto;
+}
+.wrapper.active .qr-code{
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+    transition: apacity 0.5s ease;
+}
+
+#frases {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#frases > h3 {
+    color: white;
+    padding: 10px;
+}
+
+#frases > input {
+    height: 30px;
+    border-radius: 8px;
+    border: 0;
+    padding: 5px;
+    text-align: center;
+}
+#frases > button{
+    margin-top: 0;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+
+#previews {
+    width: 70px;
+}
+
+#previews:hover {
+    width: 80px;
+}
+
+.imprecao .visualizar {
+    display: block;
+}
+
+#entregador{
+    width: 150px;
+}
+
+#barcode > img{
+    border-top: 2px dotted black;
+    padding-top: 20px;
+    width: 280px;
+    height: 80px;
+}
+
+
+@media print {
+    .Print {
+        display: flex !important; 
+        margin-top: 0;
+    }
+
+    .dados, .background-logado, .background-login, .background-ponto, .background-home, .header{
+        display: none !important;
+    }
+
+    .container-comanda{
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    #imprecao{
+        display: block !important;
+        height: auto !important;
+        width: auto !important;
+    }
+}
+
+.loading {
+    cursor: not-allowed;
+    pointer-events: none;
+    background: yellow;
+}
+
+.loading::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #910000;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.numberBar {
+    width: 100%;
+    text-align: center;
+}
