@@ -41,12 +41,13 @@
               <span class="txt-link">Comanda</span>
             </a>
           </li>
+          <!--
           <li class="item-menu">
             <a href="#backPonto">
               <span class="icon"><i class="bi bi-clock"></i></span>
               <span class="txt-link">Ponto</span>
             </a>
-          </li>
+          </li>-->
           <li class="item-menu logout">
             <a href="#">
               <span class="icon logout"><i class="bi bi-box-arrow-right"></i></span>
@@ -125,7 +126,7 @@
                             <th>Quantidade</th>
                             <th>Valor</th>
                             <th>Data</th>
-                            <th>Entregador</th>
+                            <th>Vendedor</th>
                         </tr>
                     </thead>
                     <tbody class="tableRegist" id="tabelaRegistros">
@@ -217,8 +218,19 @@
                             <input type="checkbox" id="checkboxRecibo" name="checkboxCode" value="x"> É WhatsApp? 
                         </label>
                         <select id="entregador" name="entregador">
-                            <option value="Entregador 01">Entregador 01</option>
-                            <option value="Entregador 02">Entregador 03</option>
+                            <option value="Alex">Alex</option>
+                            <option value="Adílio">Adílio</option>
+                            <option value="Carol">Carla</option>
+                            <option value="Carol">Carol</option>
+                            <option value="Débora">Débora</option>
+                            <option value="Érica">Érica</option>
+                            <option value="Gilson">Gilson</option>
+                            <option value="Gislaine">Gislaine</option>
+                            <option value="Igor">Igor</option>
+                            <option value="Ivan">Ivan</option>
+                            <option value="Rivaldo">Rivaldo</option>
+                            <option value="Mário">Mário</option>
+
                         </select>
                     </div>
                 </div>
@@ -258,7 +270,7 @@
                 <div id="resultadoTroco"></div>
                 <!-- Exibição da hora atual -->
                 <p id="horaAtual"></p>
-                <p><strong>Entregador: </strong><span id="recibo_entregador"></span></p>
+                <p><strong>Vendedor: </strong><span id="recibo_entregador"></span></p>
                 <div class="assinatura">Ainda bem que na <strong>Drogaria Popular Br</strong> tem!</div>
                 
         </div>
