@@ -232,9 +232,13 @@ firebase.auth().onAuthStateChanged((val) => {
             excluiRegistros.forEach(element => {
                 element.addEventListener('click', function (e) {
                     e.preventDefault();
-                    let docId = element.getAttribute('registrosEntregas-id');
 
-                    db.collection('registrosEntregas').doc(docId).delete();
+                    const confirmacao = confirm("Deseja realmente excluir esta entrega?");
+
+                    if (confirmacao) {
+                        let docId = element.getAttribute('registrosEntregas-id');
+                        db.collection('registrosEntregas').doc(docId).delete();
+                    }
                 })
             });
             //---------------------------------------------------------------------------------------------------
@@ -565,6 +569,7 @@ export function registrarComanda() {
     let entregador = document.getElementById('entregador').value;
     let codBarra = document.getElementById('numberBarCode').innerText;
     let qtd = document.getElementById('qtd').value;
+
 
 
     if (cliente != "") {
