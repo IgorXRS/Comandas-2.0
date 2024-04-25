@@ -17,7 +17,7 @@ function checkAlert() {
     const dayOfWeek = today.getDay();
     const hours = today.getHours();
 
-    if ((dayOfWeek === 2 && hours >= 8 && hours < 15) || (dayOfWeek === 6 && hours >= 8 && hours < 10)) {
+    if ((dayOfWeek === 3 && hours >= 8 && hours < 15) || (dayOfWeek === 6 && hours >= 8 && hours < 10)) {
         const alertModal = document.getElementById('alertModal');
 
         // Verifica se o alerta já foi desativado para o dia atual
