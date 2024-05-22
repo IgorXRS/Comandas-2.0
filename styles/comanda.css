@@ -383,10 +383,10 @@ header p{
 
 .NumeroPedido{
     display: flex;
-    font-size: 12px;
+    font-size: 18px;
 }
 
 .NumeroPedido span{
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
 }
