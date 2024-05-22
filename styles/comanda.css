@@ -380,3 +380,13 @@ header p{
     width: 100%;
     text-align: center;
 }
+
+.NumeroPedido{
+    display: flex;
+    font-size: 12px;
+}
+
+.NumeroPedido span{
+    font-size: 18px;
+    font-weight: bold;
+}

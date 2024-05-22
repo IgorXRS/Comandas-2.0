@@ -67,8 +67,50 @@ function CodBarra() {
         console.error('Elemento #barcode não encontrado.');
     }
 }
+
+
+
+function gerarNumero() {
+    // Verifica se já existe um contador armazenado no localStorage para hoje
+    let hoje = new Date().toLocaleDateString();
+    let contador = parseInt(localStorage.getItem('contador_' + hoje)) || 0;
+
+    // Determina o valor de x baseado na hora atual
+    let horaAtual = new Date().getHours();
+    let x;
+    if (horaAtual < 10) {
+        x = 30;
+    } else if (horaAtual < 18) {
+        x = 60;
+    } else if (horaAtual < 22) {
+        x = 90;
+    } else {
+        // Se passar das 22hrs, reinicia o contador e x
+        contador = 0;
+        x = 0;
+    }
+
+    // Incrementa o contador
+    contador++;
+
+    // Guarda o contador atualizado no localStorage
+    localStorage.setItem('contador_' + hoje, contador);
+
+    // Retorna o resultado
+    return contador + x;
+}
+
+
 // Função geraRecibo
 async function geraRecibo() {
+
+    // Obtém o elemento span onde o número do pedido será exibido
+    const numeroPedidoSpan = document.getElementById('NPedido');
+
+    // Atualiza o número do pedido
+    numeroPedidoSpan.textContent = gerarNumero();
+
+
     // Adicione a classe de carregamento ao botão
     const botaoGeraRecibo = document.getElementById('botao-gerar-recibo');
     botaoGeraRecibo.classList.add('loading');
