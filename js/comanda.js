@@ -78,7 +78,9 @@ function gerarNumero() {
     // Determina o valor de x baseado na hora atual
     let horaAtual = new Date().getHours();
     let x;
-    if (horaAtual < 10) {
+    if (horaAtual < 9) {
+        x = 10;
+    } else if (horaAtual < 12) {
         x = 30;
     } else if (horaAtual < 18) {
         x = 60;
