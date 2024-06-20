@@ -390,3 +390,10 @@ header p{
     font-size: 22px;
     font-weight: bold;
 }
+
+#recibo_endereco {
+    font-size: 27px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
