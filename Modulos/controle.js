@@ -88,6 +88,10 @@ const dataAtual = anoAtual + mesAtual + diaAtual;
                         <p>${val.data().hora02} hr</p>
                         </div>
                         <h6>${val.data().entregador}</h6>
+                        <div class="tempBloco">
+                            <h5><i class="bi bi-clock-history"></i> Espera: ${val.data().tempoEspera || 0} min</h5>
+                            <h5><i class="bi bi-clock-history"></i> Entrega: ${val.data().tempoEntrega || 0} min</h5>
+                        </div>
                     </div>
                 </div>
                 <div class="deco02">
@@ -568,6 +572,94 @@ const dataAtual = anoAtual + mesAtual + diaAtual;
 })
 
 
+
+db.collection('registrosEntregas')
+            .where("userId", "==", usuario.uid)
+            .onSnapshot((data) => {
+                // Tempo medio de entregas
+
+                let tempoMedioPorBairro = {};
+                let registrosEntregas = data.docs;
+
+                const MIN_TEMPO_ENTREGA = 3;
+
+                registrosEntregas.forEach(entrega => {
+
+                    let bairro = entrega.data().bairro;
+                    let tempoEntrega = entrega.data().tempoEntrega || 0;;
+                    let tempoEspera = entrega.data().tempoEspera || 0;;
+                    let tempoAtendimento = entrega.data().tempoAtendimento || 0;;
+
+                    
+                    if (!tempoMedioPorBairro[bairro]) {
+                        tempoMedioPorBairro[bairro] = {
+                            totalTempoEntrega: 0,
+                            totalTempoEspera: 0,
+                            totalTempoAtendimento: 0,
+                            quantidade: 0
+                        };
+                    }
+                    tempoMedioPorBairro[bairro].totalTempoEntrega += tempoEntrega;
+                    tempoMedioPorBairro[bairro].totalTempoEspera += tempoEspera;
+                    tempoMedioPorBairro[bairro].totalTempoAtendimento += tempoAtendimento;
+                    if (tempoEntrega >= MIN_TEMPO_ENTREGA & tempoEspera >= MIN_TEMPO_ENTREGA & tempoAtendimento >= MIN_TEMPO_ENTREGA) {
+                    tempoMedioPorBairro[bairro].quantidade++;
+                    }
+                    console.log(bairro);
+                });
+
+                // Calcular o tempo médio para cada bairro
+                for (let bairro in tempoMedioPorBairro) {
+                    let totalEntrega = tempoMedioPorBairro[bairro].totalTempoEntrega;
+                    let totalEspera = tempoMedioPorBairro[bairro].totalTempoEspera;
+                    let totalAtendimento = tempoMedioPorBairro[bairro].totalTempoAtendimento;
+                    let quantidade = tempoMedioPorBairro[bairro].quantidade;
+                    console.log(quantidade)
+
+                    tempoMedioPorBairro[bairro].tempoMedioEntrega = totalEntrega / quantidade || 0;
+                    tempoMedioPorBairro[bairro].tempoMedioEspera = totalEspera / quantidade  || 0;
+                    tempoMedioPorBairro[bairro].tempoMedioAtendimento = totalAtendimento / quantidade  || 0;
+                }
+
+                let graficoAnalise = document.querySelector('#graficoAnalise');
+                graficoAnalise.innerHTML = "";
+
+                let bairros = new Set();
+                registrosEntregas.forEach(entrega => {
+                    let bairro = entrega.data().bairro;
+                    bairros.add(bairro); // Adiciona o bairro ao Set, garantindo que não haja repetições
+                });
+                let bairrosUnicos = Array.from(bairros);
+
+                bairrosUnicos.forEach(bairro => {
+                
+                     // Verificar se o bairro já foi exibido
+                        let tempoMedioDeEspera = Math.round((tempoMedioPorBairro[bairro].tempoMedioEspera * 100) / 100);
+                        let tempoMedioDeEntrega = Math.round((tempoMedioPorBairro[bairro].tempoMedioEntrega * 100) / 100);
+                        let tempoMedioDeAtendimento = Math.round((tempoMedioPorBairro[bairro].tempoMedioAtendimento * 100) / 100);
+                        console.log(tempoMedioDeAtendimento)
+                
+                        graficoAnalise.innerHTML += `
+                            <div class="bairroBloco">
+                                <div class="barrasBloco">
+                                    <div class="barraEspera" style="height: ${tempoMedioDeEspera + 20}px;"><p>${isFinite(tempoMedioDeEspera) ? `${tempoMedioDeEspera} min` : '0 min'}</p></div>
+                                    <div class="barraEntrega" style="height: ${tempoMedioDeEntrega + 20}px;"><p>${isFinite(tempoMedioDeEntrega) ? `${tempoMedioDeEntrega} min` : '0 min'}</p></div>
+                                    <div class="barraAtendimento" style="height: ${tempoMedioDeAtendimento + 20}px;"><p>${isFinite(tempoMedioDeAtendimento) ? `${tempoMedioDeAtendimento} min` : '0 min'}</p></div>
+                                </div>
+                                <div class="bairroText">
+                                    <h4>${bairro}</h4>
+                                </div>
+                            </div>
+                        `;
+                
+                    
+                });
+
+
+
+
+                //---------------------------------------------------------------------------------------------------
+            })
 
 
 
