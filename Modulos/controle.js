@@ -29,11 +29,11 @@ firebase.auth().onAuthStateChanged((val) => {
         usuario = val;
 
         // Obter a data atual
-const hoje = new Date();
-const anoAtual = hoje.getFullYear().toString().padStart(4, '0');
-const mesAtual = (hoje.getMonth() + 1).toString().padStart(2, '0');
-const diaAtual = hoje.getDate().toString().padStart(2, '0');
-const dataAtual = anoAtual + mesAtual + diaAtual;
+        const hoje = new Date();
+        const anoAtual = hoje.getFullYear().toString().padStart(4, '0');
+        const mesAtual = (hoje.getMonth() + 1).toString().padStart(2, '0');
+        const diaAtual = hoje.getDate().toString().padStart(2, '0');
+        const dataAtual = anoAtual + mesAtual + diaAtual;
 
         //Ouvir por mudanças no banco de dados.
 
@@ -96,6 +96,49 @@ const dataAtual = anoAtual + mesAtual + diaAtual;
                 })
 
                 //---------------------------------------------------------------------------------------------------
+
+                let tempoMedioPorBairro = {};
+
+                registrosEntregas.forEach(entrega => {
+                    if (!tempoMedioPorBairro[entrega.bairro]) {
+                        tempoMedioPorBairro[entrega.bairro] = {
+                            totalTempo: 0,
+                            quantidade: 0
+                        };
+                    }
+                    tempoMedioPorBairro[entrega.bairro].totalTempo += entrega.tempoEntrega;
+                    tempoMedioPorBairro[entrega.bairro].quantidade++;
+                });
+                
+                // Calcular o tempo médio para cada bairro
+                for (let bairro in tempoMedioPorBairro) {
+                    tempoMedioPorBairro[bairro].tempoMedio = tempoMedioPorBairro[bairro].totalTempo / tempoMedioPorBairro[bairro].quantidade;
+                }
+                
+                // Debug: Imprimir tempo médio por bairro
+                console.log("Tempo médio por bairro:");
+                for (let bairro in tempoMedioPorBairro) {
+                    console.log(`${bairro}: ${tempoMedioPorBairro[bairro].tempoMedio} minutos`);
+                }
+                
+                let labels = [];
+                let valores = [];
+                
+                for (let bairro in tempoMedioPorBairro) {
+                    labels.push(bairro);
+                    valores.push(tempoMedioPorBairro[bairro].tempoMedio);
+                }
+                
+                // Debug: Imprimir labels e valores para o gráfico
+                console.log("Labels para o gráfico:");
+                console.log(labels);
+                console.log("Valores para o gráfico:");
+                console.log(valores);
+
+
+
+
+
                 // Adicione um ouvinte de eventos ao botão de confirmação de início
                 var confirmarInicioBtn = document.querySelectorAll('.confirmar-inicio-btn');
 
