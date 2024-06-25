@@ -217,9 +217,33 @@ firebase.auth().onAuthStateChanged((val) => {
 
                                         const horaFormatada = `${hora < 10 ? '0' + hora : hora}:${minutos < 10 ? '0' + minutos : minutos}`;
 
+                                        const dataAtualHora0 = new Date(doc.data().horario);
+                                        const horaHora0 = dataAtualHora0.getHours();
+                                        const minutosHora0 = dataAtualHora0.getMinutes();
+
+                                        const horaFormatadaHora0 = `${horaHora0 < 10 ? '0' + horaHora0 : horaHora0}:${minutosHora0 < 10 ? '0' + minutosHora0 : minutosHora0}`;
+
+
+                                        // Converter as strings para objetos de data
+                                        let hora1 = new Date(`2000-01-01T${doc.data().hora01}:00`);
+                                        let hora2 = new Date(`2000-01-01T${horaFormatada}:00`);
+                                        let hora0 = new Date(`2000-01-01T${horaFormatadaHora0}:00`);
+
+                                        // Calcular a diferença em milissegundos
+                                        let tempoEntrega = hora2 - hora1;
+                                        let tempoEspera = hora1 - hora0;
+
+                                        // Converter a diferença de milissegundos para minutos
+                                        let tempoEntregaFormatado = Math.floor(tempoEntrega / (1000 * 60));
+                                        let tempoEsperaFormatado = Math.floor(tempoEspera / (1000 * 60));
+                                        let tempoAtendimento = tempoEntregaFormatado + tempoEsperaFormatado;
+
                                         // Atualiza o registro com a nova informação
                                         registroRef.update({
                                             color: 'green',
+                                            tempoEntrega: tempoEntregaFormatado,
+                                            tempoEspera: tempoEsperaFormatado,
+                                            tempoAtendimento: tempoAtendimento,
                                             hora02: horaFormatada
                                         });
                                     }
