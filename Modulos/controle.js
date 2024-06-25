@@ -617,7 +617,6 @@ firebase.auth().onAuthStateChanged((val) => {
 
 
 db.collection('registrosEntregas')
-            .where("userId", "==", usuario.uid)
             .onSnapshot((data) => {
                 // Tempo medio de entregas
 
@@ -673,7 +672,7 @@ db.collection('registrosEntregas')
                     bairros.add(bairro); // Adiciona o bairro ao Set, garantindo que não haja repetições
                 });
                 let bairrosUnicos = Array.from(bairros);
-
+/*
                 bairrosUnicos.forEach(bairro => {
                 
                      // Verificar se o bairro já foi exibido
@@ -698,7 +697,7 @@ db.collection('registrosEntregas')
                     
                 });
 
-
+*/
 
 
                 //---------------------------------------------------------------------------------------------------
