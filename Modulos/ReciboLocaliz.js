@@ -49,5 +49,5 @@ export function ReciboLocaliz() {
         // Chama a função de impressão
         window.print();
 
-    }, 2000);
+    }, 3000);
 }

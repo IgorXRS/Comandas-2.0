@@ -1,6 +1,7 @@
 export function ReciboSimples () {
 
-
+// Adiciona um atraso de 2 segundos antes de executar o código a seguir
+setTimeout(() => {
         // Preenche os elementos de recibo com valores dos inputs
         document.getElementById('recibo_cliente').innerHTML = document.getElementById('cliente').value;
         document.getElementById('recibo_pagamento').innerHTML = document.getElementById('pagamento').value;
@@ -27,5 +28,5 @@ export function ReciboSimples () {
         document.getElementById('resultadoTroco').innerText = ' Valor do troco: R$ ' + resultado.toFixed(2);
 
         window.print(); // Imprime o recibo
-
+    }, 2000);
 }
