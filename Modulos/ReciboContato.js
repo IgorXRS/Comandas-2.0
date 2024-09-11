@@ -33,6 +33,7 @@ export function ReciboContato() {
     setTimeout(() => {
         // Insere os valores nos elementos do recibo
         document.getElementById('recibo_cliente').innerHTML = document.getElementById('cliente').value;
+        document.getElementById('recibo_celular').innerHTML = document.getElementById('telefone').value;
         document.getElementById('recibo_pagamento').innerHTML = document.getElementById('pagamento').value;
         document.getElementById('recibo_troco').innerHTML = document.getElementById('troco').value;
         document.getElementById('recibo_valor').innerHTML = parseFloat(document.getElementById('valor').value).toLocaleString('pt-br', { minimumFractionDigits: 2 });
