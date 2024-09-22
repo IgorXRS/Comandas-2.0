@@ -37,6 +37,7 @@
     justify-content: center;
 }
 
+
 .container-home-02{
     background: var(--corDark);
     width: 45%;
@@ -324,4 +325,72 @@ table {
     height: 5px;
     background: red;
     transform: translateY(-250%);
+}
+
+.frenteContainer{
+    display: none;
+}
+
+.InfosVendedores{
+    width: 95%;
+}
+
+.fundoContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.blocoVendedores {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.blocoVendedores table {
+    width: 95%;
+    height: 300px;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: auto; /* Permite rolagem */
+}
+
+.blocoVendedores table::-webkit-scrollbar {
+    display: none; /* Oculta a barra de rolagem no Chrome/Safari */
+}
+
+.blocoVendedores thead {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.blocoVendedores thead th {
+    padding: 12px;
+    text-align: center;
+}
+
+.blocoVendedores tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.blocoVendedores tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.blocoVendedores tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.blocoVendedores tbody td {
+    font-size: 14px;
+    color: #333;
+}
+
+.blocoVendedores tbody td:first-child {
+    font-weight: bold;
 }

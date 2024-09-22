@@ -28,6 +28,9 @@ firebase.auth().onAuthStateChanged((val) => {
     if (val) {
         usuario = val;
 
+        // Armazenando o email no localStorage
+        localStorage.setItem('emailUsuarioLogado', usuario.email); // Armazena o email
+
         // Obter a data atual
         const hoje = new Date();
         const anoAtual = hoje.getFullYear().toString().padStart(4, '0');
@@ -101,7 +104,7 @@ firebase.auth().onAuthStateChanged((val) => {
 
                 //---------------------------------------------------------------------------------------------------
 
-                
+
 
                 // Adicione um ouvinte de eventos ao botão de confirmação de início
                 var confirmarInicioBtn = document.querySelectorAll('.confirmar-inicio-btn');
@@ -285,6 +288,7 @@ firebase.auth().onAuthStateChanged((val) => {
                 });
                 //---------------------------------------------------------------------------------------------------
                 const filtroDataInput = document.getElementById('filtroData');
+
 
                 // Função para aplicar o filtro de acordo com a data especificada
                 function aplicarFiltro(dataFiltro) {
@@ -721,3 +725,153 @@ export function registrarComanda() {
     }
 
 };
+
+
+//---------------------------------------------------------------------------------------------------
+// Lista de vendedores
+const vendedores01 = ['Carla', 'Carlos', 'Gilson', 'Gislaine', 'Igor', 'Mário'];
+const vendedores02 = ['Alex', 'Adílio', 'Carol', 'Érica', 'Ivan', 'Rivaldo', 'Stella'];
+
+function obterEmailUsuarioLogado() {
+    const email = localStorage.getItem('emailUsuarioLogado'); // Obtém o email do localStorage
+    if (email) {
+        return email; // Retorna o email se existir
+    } else {
+        console.log("Nenhum usuário logado.");
+        return null; // Retorna null se não houver email armazenado
+    }
+}
+
+// Uso da função
+const emailUsuarioLogado = obterEmailUsuarioLogado();
+console.log(emailUsuarioLogado); // Exibe o email do us
+// Selecionar o grupo de vendedores com base no email
+let vendedores;
+if (emailUsuarioLogado === 'embaixadordoscosmeticos@gmail.com') {
+    vendedores = vendedores01;
+} else if (emailUsuarioLogado === 'drogariabrasil1maisvoce@gmail.com') {
+    vendedores = vendedores02;
+} else {
+    // Tratamento caso o email não corresponda a nenhum grupo
+    console.error("Email do usuário não reconhecido.");
+}
+
+function aplicarFiltro02(data) {
+    // Obter a data do primeiro dia do mês e a data atual
+    const dataAtual = new Date();
+    const primeiroDiaDoMes = new Date(dataAtual.getFullYear(), dataAtual.getMonth(), 1);
+
+    // Limpar a tabela de atendimentos
+    const tbody = document.querySelector('tbody');
+    tbody.innerHTML = "";
+
+    // Objeto para armazenar dados dos vendedores
+    const atendimentosPorVendedor = {};
+
+    // Inicializar contadores para cada vendedor
+    vendedores.forEach(vendedor => {
+        atendimentosPorVendedor[vendedor] = {
+            total: 0,
+            finalizados: 0,
+            aguardando: 0
+        };
+    });
+
+    // Iterar sobre os documentos recuperados do Firestore
+    data.forEach((doc) => {
+        const registro = doc.data();
+        const dataRegistro = new Date(registro.horario);
+
+        // Verificar se a data do registro está entre o primeiro dia do mês e a data atual
+        if (dataRegistro >= primeiroDiaDoMes && dataRegistro <= dataAtual) {
+            const vendedor = registro.entregador;
+
+            // Atualizar contadores para o vendedor
+            if (atendimentosPorVendedor[vendedor]) {
+                atendimentosPorVendedor[vendedor].total++;
+
+                if (registro.hora02 !== "--:--") {
+                    atendimentosPorVendedor[vendedor].finalizados++;
+                } else {
+                    atendimentosPorVendedor[vendedor].aguardando++;
+                }
+            }
+        }
+    });
+
+    // Criar um array de vendedores e ordenar por atendimentos finalizados
+    const vendedoresOrdenados = Object.entries(atendimentosPorVendedor).sort((a, b) => {
+        return b[1].finalizados - a[1].finalizados; // Ordenar do maior para o menor
+    });
+
+    // Preencher a tabela com os dados dos vendedores ordenados
+    vendedoresOrdenados.forEach(([vendedor, { total, finalizados, aguardando }]) => {
+        const novaLinha = document.createElement('tr');
+
+        novaLinha.innerHTML = `
+        <td>${vendedor}</td>
+        <td>${finalizados}</td>
+        <td>${aguardando}</td>
+        <td>${total}</td>
+    `;
+
+        tbody.appendChild(novaLinha);
+    });
+}
+
+
+
+// Função para buscar os dados do Firestore e depois aplicar o filtro
+function carregarDados() {
+    // Obter a data atual
+    const hoje = new Date();
+    const primeiroDiaDoMes = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+    const ultimoDiaDoMes = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0);
+    // Supondo que você tenha um método para buscar os dados do Firestore
+    db.collection('registrosEntregas')
+        .where('dataRegistro', '>=', primeiroDiaDoMes) // Substitua 'dataRegistro' pelo campo que armazena a data no seu Firestore
+        .where('dataRegistro', '<=', ultimoDiaDoMes)
+        .get()
+        .then((snapshot) => {
+            const data = snapshot.docs;
+            aplicarFiltro02(data);  // Chamar a função com os dados
+        })
+        .catch((error) => {
+            console.error("Erro ao carregar dados: ", error);
+        });
+}
+
+
+
+function atualizarAtendimentosIgor() {
+    const vendedor = 'Igor'; // Nome do vendedor a ser buscado
+
+    // Supondo que você tenha uma referência ao seu banco de dados Firestore
+    const db = firebase.firestore();
+
+    // Consulta para buscar atendimentos do vendedor Igor
+    db.collection('atendimentos') // Substitua 'atendimentos' pelo nome da sua coleção
+        .where('entregador', '==', vendedor)
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                // Atualiza os campos hora01 e hora02
+                db.collection('atendimentos').doc(doc.id).update({
+                    hora01: '12:00',
+                    hora02: '12:20'
+                })
+                    .then(() => {
+                        console.log(`Atendimento ${doc.id} atualizado com sucesso.`);
+                    })
+                    .catch((error) => {
+                        console.error("Erro ao atualizar atendimento: ", error);
+                    });
+            });
+        })
+        .catch((error) => {
+            console.error("Erro ao buscar atendimentos: ", error);
+        });
+}
+
+// Adicione um listener ao botão
+document.getElementById('AtualizarInfos').addEventListener('click', carregarDados, atualizarAtendimentosIgor);
