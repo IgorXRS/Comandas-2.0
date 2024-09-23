@@ -77,6 +77,9 @@
     <section class="background-home corpo" id="backHome">
         <div class="container-home">
             <div class="container-home-01 frenteContainer">
+                <button id="toggleButton01">
+                    ATENDIMENTOS
+                </button>
                 <img src="./img/Drog-Recuperado.png" />
                 <p>Na equipe Drogaria Popular Br, cada esforço é uma peça
                     fundamental para o nosso sucesso. Juntos,
@@ -91,8 +94,15 @@
 
             <div class="container-home-01 fundoContainer">
                 <div class="resumoTitulo InfosVendedores">
+                    <button id="toggleButton02">
+                        ATENDIMENTOS
+                    </button>
                     <i id="AtualizarInfos" class="bi bi-journal-arrow-up"></i>
                     <h2>ATENDIMENTOS ONLINE</h2>
+                    <div class="dataFiltro">
+                        <input type="date" id="dataInicioAtend">
+                        <input type="date" id="dataFimAtend">
+                    </div>
                 </div>
                 <div class="blocoVendedores">
                     <table>
@@ -105,12 +115,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Nome</td>
-                                <td>99</td>
-                                <td>99</td>
-                                <td>99</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -351,6 +355,14 @@
         <div class="modal-content">
             <button onclick="disableAlert()">Já pedi</button>
             <button onclick="closeAlert()">OK</button>
+        </div>
+    </div>
+
+    <div class="modal" id="alertModal02">
+        <p>Lembrete: MANDAR MONOFÁSICAS DROGARIAS & PETROGÁS!</p>
+        <div class="modal-content02">
+            <button onclick="disableAlert02()">Já mandou</button>
+            <button onclick="closeAlert02()">Vou avisar</button>
         </div>
     </div>
 

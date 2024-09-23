@@ -825,12 +825,16 @@ function aplicarFiltro02(data) {
 function carregarDados() {
     // Obter a data atual
     const hoje = new Date();
-    const primeiroDiaDoMes = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
-    const ultimoDiaDoMes = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0);
+    // Obtenha as datas selecionadas (você pode usar um modal para a entrada de datas)
+    const dataInicio = document.getElementById('dataInicioAtend').value; // Substitua 'dataInicio' pelo ID real do campo
+    const dataFim = document.getElementById('dataFimAtend').value; // Substitua 'dataFim' pelo ID real do campo
+    // Ajuste para incluir o último dia corretamente
+    const dataFimAjustada = new Date(dataFim);
+    dataFimAjustada.setDate(dataFimAjustada.getDate() + 1);
     // Supondo que você tenha um método para buscar os dados do Firestore
     db.collection('registrosEntregas')
-        .where('dataRegistro', '>=', primeiroDiaDoMes) // Substitua 'dataRegistro' pelo campo que armazena a data no seu Firestore
-        .where('dataRegistro', '<=', ultimoDiaDoMes)
+        .where('horario', '>=', new Date(dataInicio).getTime())
+        .where('horario', '<=', dataFimAjustada.getTime())
         .get()
         .then((snapshot) => {
             const data = snapshot.docs;
@@ -846,17 +850,14 @@ function carregarDados() {
 function atualizarAtendimentosIgor() {
     const vendedor = 'Igor'; // Nome do vendedor a ser buscado
 
-    // Supondo que você tenha uma referência ao seu banco de dados Firestore
-    const db = firebase.firestore();
-
     // Consulta para buscar atendimentos do vendedor Igor
-    db.collection('atendimentos') // Substitua 'atendimentos' pelo nome da sua coleção
+    db.collection('registrosEntregas') // Substitua 'atendimentos' pelo nome da sua coleção
         .where('entregador', '==', vendedor)
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 // Atualiza os campos hora01 e hora02
-                db.collection('atendimentos').doc(doc.id).update({
+                db.collection('registrosEntregas').doc(doc.id).update({
                     hora01: '12:00',
                     hora02: '12:20'
                 })
@@ -874,4 +875,29 @@ function atualizarAtendimentosIgor() {
 }
 
 // Adicione um listener ao botão
-document.getElementById('AtualizarInfos').addEventListener('click', carregarDados, atualizarAtendimentosIgor);
+document.getElementById('AtualizarInfos').addEventListener('click', carregarDados);
+
+
+//--------------------------------------------------------------------------------------------------------
+
+function alternarDisplay01() {
+    const frenteContainer = document.querySelector('.frenteContainer');
+    const fundoContainer = document.querySelector('.fundoContainer');
+
+        frenteContainer.style.display = 'none';
+        fundoContainer.style.display = 'flex';
+}
+
+function alternarDisplay02() {
+    const frenteContainer = document.querySelector('.frenteContainer');
+    const fundoContainer = document.querySelector('.fundoContainer');
+
+        frenteContainer.style.display = 'flex';
+        fundoContainer.style.display = 'none';
+}
+
+
+// Adicione um listener ao botão
+document.getElementById('toggleButton01').addEventListener('click', alternarDisplay01);
+// Adicione um listener ao botão
+document.getElementById('toggleButton02').addEventListener('click', alternarDisplay02);

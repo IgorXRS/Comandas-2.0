@@ -327,16 +327,26 @@ table {
     transform: translateY(-250%);
 }
 
+.dataFiltro > input{
+    margin: 5px;
+}
+
 .frenteContainer{
-    display: none;
+    display: flex;
 }
 
 .InfosVendedores{
     width: 95%;
 }
 
+#toggleButton01, #toggleButton02 {
+    position: absolute;
+    top: -20px;
+    left: 150px;
+}
+
 .fundoContainer{
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
