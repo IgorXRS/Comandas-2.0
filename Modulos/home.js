@@ -24,7 +24,7 @@ function checkAlert() {
     }
 
     // Verifica se é dia 5 ou 6 de qualquer mês e entre 8h e 20h
-    if ((dayOfMonth === 5 || dayOfMonth === 23) && hours >= 8 && hours < 20) {
+    if ((dayOfMonth === 5 || dayOfMonth === 6) && hours >= 8 && hours < 20) {
         showOrHideAlert02();
     }
 }
