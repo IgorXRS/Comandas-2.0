@@ -28,7 +28,7 @@
 }
 
 .conteiner > .titulo {
-    padding-top: 10%;
+    padding-top: 20px;
 }
 
 
@@ -64,12 +64,12 @@
     overflow: auto;
 }
 
-.recibo > h1 {
+.recibo h1 {
     border-bottom: 1px solid black;
     margin-bottom: 20px;
 }
 
-.recibo > h2 {
+.recibo h2 {
     padding: 10px;
     border: 1px solid black;
     border-radius: 20px;
@@ -79,7 +79,7 @@
     color: black;
 }
 
-.recibo > p {
+.recibo p {
     padding: 5px;
     font-size: 18px;
     color: black;
@@ -98,7 +98,6 @@
     background: rgb(150, 0, 0);
     border-radius: 30px;
     width: 600px;
-    height: 450px;
     -webkit-box-shadow: 5px 4px 25px 7px rgba(0,0,0,0.66); 
     box-shadow: 5px 4px 25px 7px rgba(0, 0, 0, 0.308);
 }
@@ -180,13 +179,13 @@
 }
 
 button {
-    margin-top: 20px;
     background-color: rgb(20, 20, 20);
     color: rgb(110, 110, 110);
     font-weight: 500;
     border: none;
     width: 160px;
     height: 30px;
+    margin-bottom: 20px;
     border-radius: 30px;
     display: flex;
     align-items: center;
@@ -400,4 +399,56 @@ header p{
 
 #reciboCelular {
 font-weight: bold;
+}
+
+.multformPag{
+    background: rgb(59, 0, 0);
+    display: flex;
+    width: 270px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.multformPag > div {
+    width: 50%;
+    padding-left: 10px;
+}
+
+.multformPag > div > select {
+    width: 90%;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.multformPag input{
+    width: 90%;
+    height: 30px;
+    border-radius: 8px;
+    border: none;
+    text-align: center;
+}
+
+.valorPedidoComandaMultFormPag{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.bloco01Multpag{
+    width: 48%;
+    border: 1px solid #474747;
+    border-radius: 10px;
+}
+
+.bloco01Multpag strong, .bloco02Multpag  strong{
+    font-size: 12px;
+}
+
+.bloco02Multpag{
+    border: 1px solid #474747;
+    border-radius: 10px;
+    width: 48%;
 }

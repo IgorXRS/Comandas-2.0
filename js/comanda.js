@@ -4,12 +4,12 @@ import { ReciboContato } from '../Modulos/ReciboContato.js';
 import { registrarComanda } from '../Modulos/controle.js';
 
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Selecione o botão
-  const botaoGeraRecibo = document.getElementById('botao-gerar-recibo');
+document.addEventListener('DOMContentLoaded', function () {
+    // Selecione o botão
+    const botaoGeraRecibo = document.getElementById('botao-gerar-recibo');
 
-  // Adicione um ouvinte de eventos de clique ao botão
-  botaoGeraRecibo.addEventListener('click', geraRecibo);
+    // Adicione um ouvinte de eventos de clique ao botão
+    botaoGeraRecibo.addEventListener('click', geraRecibo);
 });
 
 function padZero(valor) {
@@ -43,10 +43,10 @@ function CodBarra() {
             format: "CODE128",
             displayValue: false
         });
-        
 
-    const numberBarCode = document.getElementById('numberBarCode');
-    numberBarCode.innerHTML = codigoComanda;
+
+        const numberBarCode = document.getElementById('numberBarCode');
+        numberBarCode.innerHTML = codigoComanda;
 
 
         //console.log(codigoComanda);
@@ -124,22 +124,22 @@ async function geraRecibo() {
     const linkValue = input.value.trim(); // Obtém o valor do input e remove espaços em branco extras
 
     if (linkValue === '') {
-        
-      ReciboSimples ();
+
+        ReciboSimples();
 
     } else {
-    
-      var checkbox = document.getElementById("checkboxRecibo");
+
+        var checkbox = document.getElementById("checkboxRecibo");
 
         if (checkbox.checked) {
             ReciboContato();
         } else {
             ReciboLocaliz();
         }
-      
+
     }
 
-    registrarComanda ();
+    registrarComanda();
     // Remova a classe de carregamento após a conclusão da lógica
     botaoGeraRecibo.classList.remove('loading');
 }
@@ -165,6 +165,18 @@ function mostrarOcultarTroco() {
     var trocoResult = document.getElementById("troco_result");
     var resultadoTroco = document.getElementById("resultadoTroco");
 
+    var formaPagamento01 = document.getElementById("pagamento01").value;
+    var caixaTroco01 = document.getElementById("caixaTroco01");
+    var trocoResult01 = document.getElementById("troco_result01");
+    var resultadoTroco01 = document.getElementById("resultadoTroco01");
+
+    var formaPagamento02 = document.getElementById("pagamento02").value;
+    var caixaTroco02 = document.getElementById("caixaTroco02");
+    var trocoResult02 = document.getElementById("troco_result02");
+    var resultadoTroco02 = document.getElementById("resultadoTroco02");
+
+
+
     // Se a forma de pagamento for "Dinheiro", mostra o campo de troco, caso contrário, oculta
     if (formaPagamento === "Dinheiro") {
         caixaTroco.style.display = "block";
@@ -174,19 +186,72 @@ function mostrarOcultarTroco() {
         caixaTroco.style.display = "none";
         trocoResult.style.display = "none";
         resultadoTroco.style.display = "none";
+        if (formaPagamento === "MultFormPag") {
+            if (formaPagamento01 === "Dinheiro") {
+                caixaTroco01.style.display = "block";
+                trocoResult01.style.display = "block";
+                resultadoTroco01.style.display = "block";
+            } else {
+                caixaTroco01.style.display = "none";
+                trocoResult01.style.display = "none";
+                resultadoTroco01.style.display = "none";
+
+            } 
+            if (formaPagamento02 === "Dinheiro") {
+                caixaTroco02.style.display = "block";
+                trocoResult02.style.display = "block";
+                resultadoTroco02.style.display = "block";
+            } else {
+                caixaTroco02.style.display = "none";
+                trocoResult02.style.display = "none";
+                resultadoTroco02.style.display = "none";
+
+            }
+        }
+
+    }
+
+
+
+
+}
+
+function mostrarOcultarMultFormPag() {
+    var formaPagamento = document.getElementById("pagamento").value;
+    var MultFormPag = document.getElementById("MultFormPag");
+    var rotuloValor = document.getElementById("rotuloValor");
+    var valor = document.getElementById("valor");
+    var valorPedidoComandaMultFormPag = document.getElementById("valorPedidoComandaMultFormPag");
+    var valorPedidoComanda = document.getElementById("valorPedidoComanda");
+
+    // Se a forma de pagamento for "Dinheiro", mostra o campo de troco, caso contrário, oculta
+    if (formaPagamento === "MultFormPag") {
+        MultFormPag.style.display = "flex";
+        valor.style.display = "none";
+        rotuloValor.style.display = "none";
+        valorPedidoComandaMultFormPag.style.display = "flex";
+        valorPedidoComanda.style.display = "none";
+    } else {
+        MultFormPag.style.display = "none";
+        valor.style.display = "block";
+        rotuloValor.style.display = "block";
+        valorPedidoComandaMultFormPag.style.display = "none";
+        valorPedidoComanda.style.display = "block";
     }
 }
 
 // Verifica se o documento está pronto antes de executar o código
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     // Chama a função inicialmente para exibir a hora atual
     mostrarHora();
     mostrarOcultarTroco();
+    mostrarOcultarMultFormPag()
     CodBarra();
 
     // Atualiza a hora a cada segundo
     setInterval(mostrarHora, 1000);
     setInterval(mostrarOcultarTroco, 1000);
+    setInterval(mostrarOcultarMultFormPag, 1000);
     setInterval(CodBarra, 10000);
 });

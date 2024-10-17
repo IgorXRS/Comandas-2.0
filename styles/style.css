@@ -299,3 +299,9 @@ select {
 
 }
 
+
+.rotulo{
+    color: rgb(187, 187, 187);
+    font-size: 12px;
+    padding-left: 5px;
+}

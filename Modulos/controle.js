@@ -698,10 +698,29 @@ export function registrarComanda() {
     // Chame a função de registro aqui (a mesma lógica que no submit do formulário)
     let cliente = document.getElementById('cliente').value;
     let pagamento = document.getElementById('pagamento').value;
+    let pagamento01 = document.getElementById('pagamento01').value;
+    let pagamento02 = document.getElementById('pagamento02').value;
     let valor = document.getElementById('valor').value;
+    let valor01 = document.getElementById('valor01').value;
+    let valor02 = document.getElementById('valor02').value;
     let entregador = document.getElementById('entregador').value;
     let codBarra = document.getElementById('numberBarCode').innerText;
     let qtd = document.getElementById('qtd').value;
+
+
+
+    if (pagamento === "MultFormPag") {
+        var pagamentoForm = pagamento01;
+        var valorform = parseFloat(valor01) + parseFloat(valor02);
+    } else {
+        if (pagamento === "Pago") {
+            var pagamentoForm = "Dinheiro";
+            var valorform = valor;
+        } else {
+            var pagamentoForm = pagamento;
+            var valorform = valor;
+        }
+    }
 
 
 
@@ -710,10 +729,10 @@ export function registrarComanda() {
         db.collection('registrosEntregas').add({
             color: 'red',
             cliente: cliente,
-            pagamento: pagamento,
+            pagamento: pagamentoForm,
             horario: new Date().getTime(),
             userId: usuario.uid,
-            valor: valor,
+            valor: valorform,
             hora01: "--:--",
             hora02: "--:--",
             entregador: entregador,
@@ -884,16 +903,16 @@ function alternarDisplay01() {
     const frenteContainer = document.querySelector('.frenteContainer');
     const fundoContainer = document.querySelector('.fundoContainer');
 
-        frenteContainer.style.display = 'none';
-        fundoContainer.style.display = 'flex';
+    frenteContainer.style.display = 'none';
+    fundoContainer.style.display = 'flex';
 }
 
 function alternarDisplay02() {
     const frenteContainer = document.querySelector('.frenteContainer');
     const fundoContainer = document.querySelector('.fundoContainer');
 
-        frenteContainer.style.display = 'flex';
-        fundoContainer.style.display = 'none';
+    frenteContainer.style.display = 'flex';
+    fundoContainer.style.display = 'none';
 }
 
 

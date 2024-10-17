@@ -213,10 +213,12 @@
                         <div class="container01">
                             <!-- Input para o nome do cliente -->
                             <div class="caixa_text">
+                                <p class="rotulo">Nome:</p>
                                 <input type="text" placeholder="Cliente" id="cliente" name="cliente" />
                             </div>
                             <!-- Input para o telefone do cliente -->
                             <div class="caixa_text">
+                                <p class="rotulo">Telefone:</p>
                                 <input type="text" placeholder="Telefone" id="telefone" name="telefone" />
                             </div>
                             <!-- Formulário para seleção do método de pagamento -->
@@ -228,32 +230,78 @@
                                     <option value="Pix">PIX</option>
                                     <option value="Cartão">Cartão</option>
                                     <option value="Crediário">Crediário</option>
+                                    <option value="Pago">Já está Pago!</option>
+                                    <option value="MultFormPag">Pagamento em 2 formas</option>
+
                                 </select>
                             </form>
+                            <div id="MultFormPag" class="multformPag">
+
+                                <div class="formapag01">
+                                    <p class="rotulo">Pagamento 01:</p>
+                                    <select id="pagamento01" name="pagamento01">
+                                        <option value="Dinheiro">Dinheiro</option>
+                                        <option value="Dinheiro Trocado">Dinheiro Trocado</option>
+                                        <option value="Pix">PIX</option>
+                                        <option value="Cartão">Cartão</option>
+                                        <option value="Crediário">Crediário</option>
+                                    </select>
+                                    <!-- Caixa de texto para troco -->
+                                    <div class="caixa_text" id="caixaTroco01">
+                                        <p class="rotulo">Troco para:</p>
+                                        <input type="number" placeholder="Troco para?" id="troco01" />
+                                    </div>
+                                    <p class="rotulo">Valor 01:</p>
+                                    <input type="number" placeholder="Valor" step="0.01" id="valor01" name="valor02" />
+                                </div>
+                                <div class="formapag02">
+                                    <p class="rotulo">Pagamento 02:</p>
+                                    <select id="pagamento02" name="pagamento02">
+                                        <option value="Dinheiro">Dinheiro</option>
+                                        <option value="Dinheiro Trocado">Dinheiro Trocado</option>
+                                        <option value="Pix">PIX</option>
+                                        <option value="Cartão">Cartão</option>
+                                        <option value="Crediário">Crediário</option>
+                                    </select>
+                                    <!-- Caixa de texto para troco -->
+                                    <div class="caixa_text" id="caixaTroco02">
+                                        <p class="rotulo">Troco para:</p>
+                                        <input type="number" placeholder="Troco para?" id="troco02" />
+                                    </div>
+                                    <p class="rotulo">Valor 02:</p>
+                                    <input type="number" placeholder="Valor" step="0.01" id="valor02" name="valor02" />
+                                </div>
+
+                            </div>
                             <div style="display: none;" class="caixa_text" id="caixaQtd">
                                 <input type="number" placeholder="Quantidade?" id="qtd" value="1" />
                             </div>
                             <!-- Caixa de texto para troco -->
                             <div class="caixa_text" id="caixaTroco">
+                                <p class="rotulo">Troco para:</p>
                                 <input type="number" placeholder="Troco para?" id="troco" />
                             </div>
                             <!-- Caixa de texto para valor -->
                             <div class="caixa_text">
+                                <p id="rotuloValor" class="rotulo">Valor do pedido:</p>
                                 <input type="number" placeholder="Valor" step="0.01" id="valor" name="valor" />
                             </div>
                         </div>
                         <div class="container02">
                             <!-- Caixa de texto para endereço -->
                             <div class="caixa_text">
+                                <p class="rotulo">Bairro:</p>
                                 <input type="text" id="bairro" placeholder="Bairro" />
                             </div>
                             <!-- Caixa de texto para endereço -->
                             <div class="caixa_text">
+                                <p class="rotulo">Endereço:</p>
                                 <textarea type="text" id="endereco" placeholder="Endereço"></textarea>
                             </div>
                             <!-- Formulário para geração de QR Code -->
                             <div class="form">
                                 <div class="caixa_text">
+                                    <p class="rotulo">Link:</p>
                                     <input type="text" placeholder="Link" id="link" />
                                 </div>
                                 <!-- Checkbox para indicar se é WhatsApp -->
@@ -314,16 +362,46 @@
                             <p id="frase"></p>
                         </h1>
                         <p id="reciboCelular">Nº Celular: <span id="recibo_celular"></span></p>
-                        <p><strong>Forma de Pagamento: </strong><span id="recibo_pagamento"></span></p>
-                        <p id="troco_result"><strong>Troco para: </strong><span id="recibo_troco"></span></p>
-                        <p><strong>Qtd: </strong><span id="recibo_qtd">1</span></p>
-                        <p><strong>Valor R$: </strong>
-                            <br />
-                        <h2 id="recibo_valor">0,00</h2>
-                        </p>
+                        <div id="valorPedidoComanda" class="valorPedidoComanda">
+                            <p><strong>Forma de Pagamento: </strong><span id="recibo_pagamento"></span></p>
+                            <p id="troco_result">
+                                <strong>Troco para: </strong>
+                                <span id="recibo_troco"></span>
+                            </p>
+                            <p><strong>Valor R$: </strong>
+                                <br />
+                            <h2 id="recibo_valor">0,00</h2>
+                            </p>
+                        </div>
+                        <div id="valorPedidoComandaMultFormPag" class="valorPedidoComandaMultFormPag">
+                            <div class="bloco01Multpag">
+                                <p><strong>Forma de Pagamento: </strong><span id="recibo_pagamento01"></span></p>
+                                <p id="troco_result01">
+                                    <strong>Troco para: </strong>
+                                    <span id="recibo_troco01"></span>
+                                </p>
+                                <p><strong>Valor R$: </strong>
+                                    <br />
+                                <h2 id="recibo_valor01">0,00</h2>
+                                </p>
+                            </div>
+                            <div class="bloco02Multpag">
+                                <p><strong>Forma de Pagamento: </strong><span id="recibo_pagamento02"></span></p>
+                                <p id="troco_result02">
+                                    <strong>Troco para: </strong>
+                                    <span id="recibo_troco02"></span>
+                                </p>
+                                <p><strong>Valor R$: </strong>
+                                    <br />
+                                <h2 id="recibo_valor02">0,00</h2>
+                                </p>
+                            </div>
+                        </div>
                         <p><strong>Endereço: </strong><span id="recibo_endereco"></span></p>
                         <br />
                         <div id="resultadoTroco"></div>
+                        <div id="resultadoTroco01"></div>
+                        <div id="resultadoTroco02"></div>
                         <!-- Exibição da hora atual -->
                         <p id="horaAtual"></p>
                         <p><strong>Vendedor: </strong><span id="recibo_entregador"></span></p>
