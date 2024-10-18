@@ -12,6 +12,8 @@ export function ReciboSimples() {
         document.getElementById('recibo_entregador').innerHTML = document.getElementById('entregador').value;
 
         var formaPagamento = document.getElementById('pagamento').value;
+        var formaPagamento01 = document.getElementById('pagamento01').value;
+        var formaPagamento02 = document.getElementById('pagamento02').value;
 
         if (formaPagamento === "MultFormPag") {
 
@@ -57,11 +59,21 @@ export function ReciboSimples() {
         var resultado02 = troco02 - valor02;
 
         // Exibe o resultado na seção Print
-        document.getElementById('resultadoTroco').innerText = ' Valor do troco: R$ ' + resultado.toFixed(2);
+        if (formaPagamento === "Dinheiro") {
+            document.getElementById('resultadoTroco').innerText = ' Valor do troco: R$ ' + resultado.toFixed(2);
+        }
 
-        document.getElementById('resultadoTroco01').innerText = ' Valor do troco: R$ ' + resultado01.toFixed(2);
+        if (formaPagamento === "MultFormPag") {
+            if (formaPagamento01 === "Dinheiro") {
+                document.getElementById('resultadoTroco01').innerText = ' Valor do troco: R$ ' + resultado01.toFixed(2);
+            }
 
-        document.getElementById('resultadoTroco02').innerText = ' Valor do troco: R$ ' + resultado02.toFixed(2);
+            if (formaPagamento02 === "Dinheiro") {
+                document.getElementById('resultadoTroco02').innerText = ' Valor do troco: R$ ' + resultado02.toFixed(2);
+            }
+        }
+
+
 
         window.print(); // Imprime o recibo
     }, 2000);
