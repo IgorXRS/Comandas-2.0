@@ -39,7 +39,6 @@ export function ReciboContato() {
         document.getElementById('recibo_valor').innerHTML = parseFloat(document.getElementById('valor').value).toLocaleString('pt-br', { minimumFractionDigits: 2 });
         document.getElementById('recibo_endereco').innerHTML = document.getElementById('endereco').value;
         document.getElementById('recibo_entregador').innerHTML = document.getElementById('entregador').value;
-        document.getElementById('recibo_qtd').innerHTML = document.getElementById('qtd').value;
 
         var formaPagamento = document.getElementById('pagamento').value;
 
@@ -80,11 +79,19 @@ export function ReciboContato() {
         var resultado02 = troco02 - valor02;
 
         // Exibe o resultado na seção Print
-        document.getElementById('resultadoTroco').innerText = ' Valor do troco: R$ ' + resultado.toFixed(2);
+        if (formaPagamento === "Dinheiro") {
+            document.getElementById('resultadoTroco').innerText = ' Valor do troco: R$ ' + resultado.toFixed(2);
+        }
 
-        document.getElementById('resultadoTroco01').innerText = ' Valor do troco: R$ ' + resultado01.toFixed(2);
+        if (formaPagamento === "MultFormPag") {
+            if (formaPagamento01 === "Dinheiro") {
+                document.getElementById('resultadoTroco01').innerText = ' Valor do troco: R$ ' + resultado01.toFixed(2);
+            }
 
-        document.getElementById('resultadoTroco02').innerText = ' Valor do troco: R$ ' + resultado02.toFixed(2);
+            if (formaPagamento02 === "Dinheiro") {
+                document.getElementById('resultadoTroco02').innerText = ' Valor do troco: R$ ' + resultado02.toFixed(2);
+            }
+        }
         // Chama a função de impressão
         window.print();
     }, 3000);
