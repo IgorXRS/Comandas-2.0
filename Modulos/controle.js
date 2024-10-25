@@ -333,9 +333,16 @@ firebase.auth().onAuthStateChanged((val) => {
                         const dataRegistro = new Date(registro.data().horario).toLocaleDateString();
 
                         if (dataRegistro === dataFiltro) {
-                            // Converta o valor para número antes de somar
-                            somaQtd += parseInt(registro.data().qtd, 10);
-                            somaValor += parseInt(registro.data().valor, 10);
+                            // Converta os valores de quantidade e valor para número apenas se forem válidos
+                            const qtd = parseInt(registro.data().qtd, 10);
+                            const valor = parseInt(registro.data().valor, 10);
+
+                            if (!isNaN(qtd) && qtd !== null && qtd !== undefined) {
+                                somaQtd += qtd;
+                            }
+                            if (!isNaN(valor) && valor !== null && valor !== undefined) {
+                                somaValor += valor;
+                            }
                         }
                     });
                     const contagemTotal = document.getElementById('contagemTotal');
@@ -361,9 +368,16 @@ firebase.auth().onAuthStateChanged((val) => {
 
                         // Verifique se o registro é do dia atual e a forma de pagamento inclui "Dinheiro"
                         if (dataRegistro === dataFiltro && (registro.data().pagamento.includes('Dinheiro') || registro.data().pagamento.includes('Dinheiro Trocado'))) {
-                            // Converta o valor da quantidade para número antes de somar
-                            somaQtdDinheiro += parseInt(registro.data().qtd, 10);
-                            somaValorDinheiro += parseInt(registro.data().valor, 10);
+                            // Converta os valores de quantidade e valor para número apenas se forem válidos
+                            const qtd = parseInt(registro.data().qtd, 10);
+                            const valor = parseInt(registro.data().valor, 10);
+
+                            if (!isNaN(qtd) && qtd !== null && qtd !== undefined) {
+                                somaQtdDinheiro += qtd;
+                            }
+                            if (!isNaN(valor) && valor !== null && valor !== undefined) {
+                                somaValorDinheiro += valor;
+                            }
                         }
                     });
 
@@ -387,8 +401,15 @@ firebase.auth().onAuthStateChanged((val) => {
                         // Verifique se o registro é do dia atual e o pagamento é "Dinheiro"
                         if (dataRegistro === dataFiltro && registro.data().pagamento === 'Pix') {
                             // Converta o valor da quantidade para número antes de somar
-                            somaQtdPix += parseInt(registro.data().qtd, 10);
-                            somaValorPix += parseInt(registro.data().valor, 10);
+                            const qtd = parseInt(registro.data().qtd, 10);
+                            const valor = parseInt(registro.data().valor, 10);
+
+                            if (!isNaN(qtd) && qtd !== null && qtd !== undefined) {
+                                somaQtdPix += qtd;
+                            }
+                            if (!isNaN(valor) && valor !== null && valor !== undefined) {
+                                somaValorPix += valor;
+                            }
                         }
                     });
 
@@ -410,9 +431,16 @@ firebase.auth().onAuthStateChanged((val) => {
 
                         // Verifique se o registro é do dia atual e o pagamento é "Dinheiro"
                         if (dataRegistro === dataFiltro && registro.data().pagamento === 'Cartão') {
-                            // Converta o valor da quantidade para número antes de somar
-                            somaQtdCartao += parseInt(registro.data().qtd, 10);
-                            somaValorCartao += parseInt(registro.data().valor, 10);
+                            // Converta os valores de quantidade e valor para número apenas se forem válidos
+                            const qtd = parseInt(registro.data().qtd, 10);
+                            const valor = parseInt(registro.data().valor, 10);
+
+                            if (!isNaN(qtd) && qtd !== null && qtd !== undefined) {
+                                somaQtdCartao += qtd;
+                            }
+                            if (!isNaN(valor) && valor !== null && valor !== undefined) {
+                                somaValorCartao += valor;
+                            }
                         }
                     });
 
@@ -507,27 +535,36 @@ firebase.auth().onAuthStateChanged((val) => {
                         const valor = parseInt(registro.valor, 10);
                         const qtd = parseInt(registro.qtd, 10);
 
-                        relatorioData.total += valor;
-                        relatorioData.totalQtd += qtd;
+                        // Verifique se valor e qtd são números válidos antes de somar
+                        if (!isNaN(valor) && valor !== null && valor !== undefined) {
+                            relatorioData.total += valor;
 
-                        if (registro.pagamento.includes('Dinheiro')) {
-                            relatorioData.totalDinheiro += valor;
-                        } else if (registro.pagamento === 'Cartão') {
-                            relatorioData.totalCartao += valor;
-                        } else if (registro.pagamento === 'Pix') {
-                            relatorioData.totalPix += valor;
+                            if (registro.pagamento.includes('Dinheiro')) {
+                                relatorioData.totalDinheiro += valor;
+                            } else if (registro.pagamento === 'Cartão') {
+                                relatorioData.totalCartao += valor;
+                            } else if (registro.pagamento === 'Pix') {
+                                relatorioData.totalPix += valor;
+                            }
+                        }
+
+                        if (!isNaN(qtd) && qtd !== null && qtd !== undefined) {
+                            relatorioData.totalQtd += qtd;
                         }
 
                         const dataRegistro = new Date(registro.horario).toLocaleDateString();
 
                         // Verifique se já existe uma entrada para este dia
-                        const diaExistente = relatorioData.dadosPorDia.find((dia) => dia.data === dataRegistro);
-
-                        if (diaExistente) {
-                            diaExistente.valorTotal += valor;
-                            diaExistente.qtdTotal += qtd;
-                        } else {
-                            relatorioData.dadosPorDia.push({ data: dataRegistro, valorTotal: valor, qtdTotal: qtd });
+                        if (!isNaN(valor) && valor !== null && valor !== undefined && !isNaN(qtd) && qtd !== null && qtd !== undefined) {
+                            // Verifique se já existe uma entrada para este dia
+                            const diaExistente = relatorioData.dadosPorDia.find((dia) => dia.data === dataRegistro);
+                        
+                            if (diaExistente) {
+                                diaExistente.valorTotal += valor;
+                                diaExistente.qtdTotal += qtd;
+                            } else {
+                                relatorioData.dadosPorDia.push({ data: dataRegistro, valorTotal: valor, qtdTotal: qtd });
+                            }
                         }
 
                     });
